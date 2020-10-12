@@ -1,7 +1,7 @@
 package com.bridgelabz.binarytree;
 
 public class BinaryTree<K extends Comparable<K>> {
-	private BinaryNode root;
+	private BinaryNode<K> root;
 
 	// To add an element
 	public void add(K key) {
@@ -30,4 +30,25 @@ public class BinaryTree<K extends Comparable<K>> {
 		return current == null ? 0 : 1 + this.getSizeRecursive(current.left) + this.getSizeRecursive(current.right);
 	}
 
+	// To search a given key()
+	public boolean searchKey(K key) {
+		return this.searchRecursively(root, key);
+	}
+
+	private boolean searchRecursively(BinaryNode<K> current, K key) {
+		if (current == null) {
+			return false;
+		}
+		int compareResult = key.compareTo(current.key);
+		if (compareResult == 0) {
+			return true;
+		}
+		if (compareResult < 0) {
+			return (searchRecursively(current.left, key));
+		}
+		if (compareResult > 0) {
+			return (searchRecursively(current.right, key));
+		}
+		return false;
+	}
 }
